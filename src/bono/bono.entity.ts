@@ -1,14 +1,11 @@
 import { ClaseEntity } from '../clase/clase.entity';
-import { UsuarioEntity } from '../Usuario/usuario.entity';
+import { UsuarioEntity } from '../usuario/usuario.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class BonoEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    
-    @Column()
-    string: string;
 
     @Column()
     amount: number;

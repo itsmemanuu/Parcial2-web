@@ -1,6 +1,6 @@
 import { BonoEntity } from '../bono/bono.entity';
 import { ClaseEntity } from '../clase/clase.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UsuarioEntity {
@@ -22,11 +22,8 @@ export class UsuarioEntity {
     @Column()
     role: string;
 
-    @ManyToOne(() => UsuarioEntity, usuario => usuario.employees)
-    boss: UsuarioEntity;
-
-    @OneToMany(() => UsuarioEntity, usuario => usuario.boss)
-    employees: UsuarioEntity[];
+    @Column()
+    bossID: string;
 
     @OneToMany(() => ClaseEntity, clase => clase.teacher)
     classes: ClaseEntity[];

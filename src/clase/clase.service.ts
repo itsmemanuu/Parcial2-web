@@ -11,37 +11,18 @@ export class ClaseService {
         private readonly claseRepository: Repository<ClaseEntity>,
     ){}
 
-    async findAll(): Promise<ClaseEntity[]> {
-        return await this.claseRepository.find({ relations: [/*TODO*/] });
-    }
- 
-    async findOne(id: string): Promise<ClaseEntity> {
-        const clase: ClaseEntity = await this.claseRepository.findOne({where: {id}, relations: [/*TODO*/] } );
-        if (!clase)
-          throw new BusinessLogicException("The clase with the given id was not found", BusinessError.NOT_FOUND);
-   
-        return clase;
-    }
-   
     async create(clase: ClaseEntity): Promise<ClaseEntity> {
+        if (clase.code.length != 10)
+            throw new BusinessLogicException("The code must be 10 characters long", BusinessError.PRECONDITION_FAILED);
+
         return await this.claseRepository.save(clase);
     }
- 
-    async update(id: string, clase: ClaseEntity): Promise<ClaseEntity> {
-        const persistedClase: ClaseEntity = await this.claseRepository.findOne({where:{id}});
-        if (!persistedClase)
-          throw new BusinessLogicException("The clase with the given id was not found", BusinessError.NOT_FOUND);
-       
-        clase.id = id; 
-       
-        return await this.claseRepository.save(clase);
-    }
- 
-    async delete(id: string) {
-        const clase: ClaseEntity = await this.claseRepository.findOne({where:{id}});
+
+    async findByID(ID: string): Promise<ClaseEntity> {
+        const clase: ClaseEntity = await this.claseRepository.findOne({where: {id: ID}, relations: ['teacher', 'bonos']});
         if (!clase)
-          throw new BusinessLogicException("The clase with the given id was not found", BusinessError.NOT_FOUND);
-     
-        await this.claseRepository.remove(clase);
+            throw new BusinessLogicException("The clase with the given id was not found", BusinessError.NOT_FOUND);
+
+        return clase;
     }
 }

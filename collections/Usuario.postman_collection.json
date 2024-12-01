@@ -1,0 +1,651 @@
+{
+	"info": {
+		"_postman_id": "c08b3402-d337-41d8-a09b-ff595505698a",
+		"name": "Usuario",
+		"description": "### POST Create a Teacher\nEste caso evalúa la funcionalidad principal para crear un usuario con el rol de \"Teacher\". Es crucial garantizar que el sistema permita registrar correctamente a los profesores con todos los campos obligatorios (nombre, cédula, rol, entre otros). Esto valida que las reglas de negocio para la creación de usuarios con este rol sean consistentes y funcionales.\n\n### POST Create an invalid Teacher  \nVerifica que se estén aplicando las reglas de negocio al crear un profesor.\n\n### POST Create a Dean  \nEste caso evalúa la capacidad de crear un usuario con el rol de \"Dean\". Es similar al caso de \"Teacher\", pero enfocado en validar las reglas específicas aplicables al rol de decano.\n\n### POST Create an invalid Dean  \nVerifica que se estén aplicando las reglas de negocio al crear un decano.\n\n### GET Get one Usuario\nEste caso verifica que el sistema pueda recuperar correctamente la información de un usuario específico mediante su identificador único. \n\n### GET Get an invalid Usuario  \nEste caso evalúa cómo responde el sistema al intentar consultar un usuario inexistente o con un identificador inválido.\n\n### DEL Delete an Usuario  \nGarantiza que los usuarios puedan ser eliminados correctamente sin afectar otros datos relacionados, como las clases o los bonos asociados.\n\n### DEL Delete an invalid Usuario\nEste caso verifica cómo maneja el sistema los intentos de eliminar un usuario que no existe.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25534577"
+	},
+	"item": [
+		{
+			"name": "Create a Teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"teacher_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cedula\": 123456789,\r\n  \"name\": \"John Doe\",\r\n  \"researchGroup\": \"ICSW\",\r\n  \"ext\": 101,\r\n  \"role\": \"Teacher\",\r\n  \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/usuario",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Teacher",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cedula\": 123456789,\r\n  \"name\": \"John Doe\",\r\n  \"researchGroup\": \"ICSW\",\r\n  \"ext\": 101,\r\n  \"role\": \"Teacher\",\r\n  \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create an invalid Teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The research group is not valid\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cedula\": 123456789,\r\n  \"name\": \"John Doe\",\r\n  \"researchGroup\": \"invalid\",\r\n  \"ext\": 101,\r\n  \"role\": \"Teacher\",\r\n  \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/usuario",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Teacher",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The research group is not valid\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create a Dean",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"dean_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cedula\": 987654321,\r\n    \"name\": \"Jane Smith\",\r\n    \"researchGroup\": \"IMAGINE\",\r\n    \"ext\": 88888888,\r\n    \"role\": \"Dean\",\r\n    \"bossID\": \"d6e7a8b9-f4c5-4d3e-9b8a-bccef6d7a890\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/usuario",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Dean",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"f8b3c6d5-7e2f-48a7-8b96-54c45b1c3c4e\",\r\n    \"cedula\": 987654321,\r\n    \"name\": \"Jane Smith\",\r\n    \"researchGroup\": \"IMAGINE\",\r\n    \"ext\": 88888888,\r\n    \"role\": \"Dean\",\r\n    \"bossID\": \"d6e7a8b9-f4c5-4d3e-9b8a-bccef6d7a890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create an invalid Dean",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The extension number must be 8 digits long\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cedula\": 987654321,\r\n    \"name\": \"Jane Smith\",\r\n    \"researchGroup\": \"IMAGINE\",\r\n    \"ext\": 8888,\r\n    \"role\": \"Dean\",\r\n    \"bossID\": \"d6e7a8b9-f4c5-4d3e-9b8a-bccef6d7a890\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/usuario",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create an invalid Dean",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The extension number must be 8 digits long\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The extension number must be 8 digits long\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get one Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/usuario/{{teacher_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario",
+						"{{teacher_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get one Usuario",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"a639c82c-88fa-42b9-8550-015688ac374c\",\r\n    \"cedula\": 123456789,\r\n    \"name\": \"John Doe\",\r\n    \"researchGroup\": \"ICSW\",\r\n    \"ext\": 101,\r\n    \"role\": \"Teacher\",\r\n    \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\",\r\n    \"classes\": [],\r\n    \"bonos\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario/{{teacher_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario",
+								"{{teacher_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get an invalid Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The usuario with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/usuario/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get an invalid Usuario",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 404,\r\n    \"message\": \"The usuario with the given id was not found\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuario",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete an Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/usuario/{{teacher_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario",
+						"{{teacher_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete an Usuario",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario/{{teacher_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario",
+								"{{teacher_id}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete an invalid Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The usuario cannot be deleted because it's a Dean\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/usuario/{{dean_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario",
+						"{{dean_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete an invalid Usuario",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The usuario cannot be deleted because it's a Dean\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario/{{dean_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario",
+								"{{dean_id}}"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}

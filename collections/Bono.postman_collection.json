@@ -1,0 +1,939 @@
+{
+	"info": {
+		"_postman_id": "8a67d278-d2bc-469c-9ff6-86b9ee3d3667",
+		"name": "Bono",
+		"description": "> Los casos que no se mencionan son utilizados como precondiciones para los relevantes a la entidad \n  \n\n### POST Create a Bono\n\nEste caso verifica que el flujo principal funcione sin problemas.\n\n### POST Create an invalid Bono (amount)\n\nEste caso garantiza que las validaciones del monto del bono funcionen correctamente y que el sistema devuelva una respuesta de error clara y comprensible.\n\n### POST Create an invalid Bono (user role)\n\nGarantiza que las reglas de negocio sobre los roles de usuario se implementen correctamente y que no sea posible asignar roles inapropiados a los bonos.\n\n### GET Get all Bonos by Class Code\n\nGarantiza que las relaciones entre Clases y Bonos estén correctamente modeladas y gestionadas en el backend.\n\n### GET Get all Bonos by User ID\n\nGarantiza que las relaciones entre Usuarios y Bonos estén correctamente modeladas y gestionadas en el backend.\n\n### DEL Delete a Bono\n\nEste caso prueba que el sistema pueda eliminar correctamente un bono existente.\n\n### DEL Delete an invalid Bono\n\nEste caso verifica cómo responde el sistema al intentar eliminar un bono que tiene una calificación mayor a 4.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25534577"
+	},
+	"item": [
+		{
+			"name": "Create a Clase",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"clase\", JSON.stringify(data));\r",
+							"pm.globals.set(\"clase_code\", data.code)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Introduction to Programming\",\r\n  \"code\": \"CS10198145\",\r\n  \"creds\": 3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/clase",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clase"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Clase",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Introduction to Programming\",\r\n    \"code\": \"CS10198145\",\r\n    \"creds\": 3,\r\n    \"id\": \"8c259216-d8b2-46ea-8470-2af4ef16b1e7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clase",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clase"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create a Teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"teacher\", JSON.stringify(data));\r",
+							"pm.globals.set(\"teacher_id\", data.id)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cedula\": 123456789,\r\n  \"name\": \"John Doe\",\r\n  \"researchGroup\": \"ICSW\",\r\n  \"ext\": 101,\r\n  \"role\": \"Teacher\",\r\n  \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/usuario",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Teacher",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cedula\": 123456789,\r\n  \"name\": \"John Doe\",\r\n  \"researchGroup\": \"ICSW\",\r\n  \"ext\": 101,\r\n  \"role\": \"Teacher\",\r\n  \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create a Bono",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"bono_id\", data.id)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": 10,\r\n  \"grade\": 4.5,\r\n  \"keyWord\": \"EXCELLENCE\",\r\n  \"class\":  {{clase}},\r\n  \"user\": {{teacher}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/bono",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Bono",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 10,\r\n    \"grade\": 4.5,\r\n    \"keyWord\": \"EXCELLENCE\",\r\n    \"class\": {\r\n        \"name\": \"Introduction to Programming\",\r\n        \"code\": \"CS10198145\",\r\n        \"creds\": 3,\r\n        \"id\": \"637443b9-3946-4eb4-9a31-565667785d4c\"\r\n    },\r\n    \"user\": {\r\n        \"cedula\": 123456789,\r\n        \"name\": \"John Doe\",\r\n        \"researchGroup\": \"ICSW\",\r\n        \"ext\": 101,\r\n        \"role\": \"Teacher\",\r\n        \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\",\r\n        \"id\": \"dcb3c667-a9aa-45c4-abd0-2adfac60c792\"\r\n    },\r\n    \"id\": \"81b5230c-4129-413a-a79d-566f1d412990\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create a Bono 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"bono_id2\", data.id)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": 10,\r\n  \"grade\": 3.5,\r\n  \"keyWord\": \"EXCELLENCE\",\r\n  \"class\":  {{clase}},\r\n  \"user\": {{teacher}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/bono",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Bono",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 10,\r\n    \"grade\": 3.5,\r\n    \"keyWord\": \"EXCELLENCE\",\r\n    \"class\": {\r\n        \"name\": \"Introduction to Programming\",\r\n        \"code\": \"CS10198145\",\r\n        \"creds\": 3,\r\n        \"id\": \"637443b9-3946-4eb4-9a31-565667785d4c\"\r\n    },\r\n    \"user\": {\r\n        \"cedula\": 123456789,\r\n        \"name\": \"John Doe\",\r\n        \"researchGroup\": \"ICSW\",\r\n        \"ext\": 101,\r\n        \"role\": \"Teacher\",\r\n        \"bossID\": \"a7d9e6c2-f3b4-4e5d-b1e8-cccb5dc3a700\",\r\n        \"id\": \"dcb3c667-a9aa-45c4-abd0-2adfac60c792\"\r\n    },\r\n    \"id\": \"f2f01ee5-9364-402c-8476-9fdc16f290e4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create an invalid Bono (amount)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The amount must be greater than 0\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": -5,\r\n  \"grade\": 4.5,\r\n  \"keyWord\": \"EXCELLENCE\",\r\n  \"class\": {{clase}},\r\n  \"user\": {{teacher}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/bono",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create an invalid Bono",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The amount must be greater than 0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create a Dean",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"dean\", JSON.stringify(data));\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cedula\": 987654321,\r\n    \"name\": \"Jane Smith\",\r\n    \"researchGroup\": \"IMAGINE\",\r\n    \"ext\": 88888888,\r\n    \"role\": \"Dean\",\r\n    \"bossID\": \"d6e7a8b9-f4c5-4d3e-9b8a-bccef6d7a890\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/usuario",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Dean",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"f8b3c6d5-7e2f-48a7-8b96-54c45b1c3c4e\",\r\n    \"cedula\": 987654321,\r\n    \"name\": \"Jane Smith\",\r\n    \"researchGroup\": \"IMAGINE\",\r\n    \"ext\": 88888888,\r\n    \"role\": \"Dean\",\r\n    \"bossID\": \"d6e7a8b9-f4c5-4d3e-9b8a-bccef6d7a890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create an invalid Bono (user role)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The user must be a teacher\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": 10,\r\n  \"grade\": 4.5,\r\n  \"keyWord\": \"EXCELLENCE\",\r\n  \"class\": {{clase}},\r\n  \"user\": {{dean}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/bono",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create an invalid Bono",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The user must be a teacher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get all Bonos by Class Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of bonos > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check all elements in data for the code\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    for (var i = 0; i < data.length; i++) {\r",
+							"        pm.expect(data[i].class.code).to.equal(pm.globals.get(\"clase_code\"));\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/bono/classcode/{{clase_code}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono",
+						"classcode",
+						"{{clase_code}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all Bonos by Class Code",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": \"5cf6c8da-8afc-4257-95fe-2f7cc42ef68f\",\r\n        \"amount\": 10,\r\n        \"grade\": 4.5,\r\n        \"keyWord\": \"EXCELLENCE\",\r\n        \"class\": {\r\n            \"id\": \"8466a77d-d935-4282-a5cc-e4b91d864db5\",\r\n            \"name\": \"Introduction to Programming\",\r\n            \"code\": \"CS10198145\",\r\n            \"creds\": 3\r\n        }\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/bono/{{clase_code}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bono",
+								"{{clase_code}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get all Bonos by User ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of bonos > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check all elements in data for the user ID\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    for (var i = 0; i < data.length; i++) {\r",
+							"        pm.expect(data[i].user.id).to.equal(pm.globals.get(\"teacher_id\"));\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/bono/teacherID/{{teacher_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono",
+						"teacherID",
+						"{{teacher_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all Bonos by User ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": \"5cf6c8da-8afc-4257-95fe-2f7cc42ef68f\",\r\n        \"amount\": 10,\r\n        \"grade\": 4.5,\r\n        \"keyWord\": \"EXCELLENCE\",\r\n        \"class\": {\r\n            \"id\": \"8466a77d-d935-4282-a5cc-e4b91d864db5\",\r\n            \"name\": \"Introduction to Programming\",\r\n            \"code\": \"CS10198145\",\r\n            \"creds\": 3\r\n        }\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/bono/teacherID/{{teacher_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bono",
+								"teacherID",
+								"{{teacher_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete a Bono",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/bono/{{bono_id2}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono",
+						"{{bono_id2}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete a Bono",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/bono/{{bono_id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bono",
+								"{{bono_id2}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete an invalid Bono",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The bono cannot be deleted because it has a grade greater than 4\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/bono/{{bono_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"bono",
+						"{{bono_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete an invalid Bono",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusCode\": 412,\r\n    \"message\": \"The bono cannot be deleted because it has a grade greater than 4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/bono/{{bono_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bono",
+								"{{bono_id}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
